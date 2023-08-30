@@ -27,29 +27,29 @@ const Operacion = async (req, res) => {
 
     if (Detalle === "Compra") {
       if (Divisa === "USD" || Divisa === "EUR") {
-        if (divisas.Pesos > 0) {
+        if (divisas.Pesos - MontoTotal >= 0) {
           divisas.Pesos = (divisas.Pesos || 0) - MontoTotal;
           divisasOp.Pesos = (divisasOp.Pesos || 0) + MontoTotal;
         } else {
-          return SwAlert();
+          return res.status(500).json({ message: "Fondos insuficientes" });
         }
       } else {
         return res.status(400).json({ message: "Invalid currency specified" });
       }
     } else {
       if (Divisa === "USD") {
-        if (divisas.Dolares > 0) {
+        if (divisas.Dolares - Monto >= 0) {
           divisas.Dolares = (divisas.Dolares || 0) - Monto;
           divisasOp.Dolares = (divisasOp.Dolares || 0) + Monto;
         } else {
-          return SwAlert();
+          return res.status(500).json({ message: "Fondos insuficientes" });
         }
       } else if (Divisa === "EUR") {
-        if (divisas.Dolares > 0) {
+        if (divisas.Dolares - Monto >= 0) {
           divisas.Euros = (divisas.Euros || 0) - Monto;
           divisasOp.Euros = (divisasOp.Euros || 0) + Monto;
         } else {
-          return SwAlert();
+          return res.status(500).json({ message: "Fondos insuficientes" });
         }
       }
     }

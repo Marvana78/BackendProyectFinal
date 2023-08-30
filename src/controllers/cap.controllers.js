@@ -60,12 +60,26 @@ const movimientoCapital = async (req, res) => {
       return res.status(400).json({ message: "Invalid detail specified" });
     }
 
+    console.log(Divisa.Dolares + updatedMonto);
+
     if (Divisa === "USD") {
-      divisas.Dolares = (divisas.Dolares || 0) + updatedMonto;
+      if (divisas.Dolares + updatedMonto >= 0) {
+        divisas.Dolares = (divisas.Dolares || 0) + updatedMonto;
+      } else {
+        return res.status(500).json({ message: "Fondos insuficientes" });
+      }
     } else if (Divisa === "ARS") {
-      divisas.Pesos = (divisas.Pesos || 0) + updatedMonto;
+      if (divisas.Pesos + updatedMonto >= 0) {
+        divisas.Pesos = (divisas.Pesos || 0) + updatedMonto;
+      } else {
+        return res.status(500).json({ message: "Fondos insuficientes" });
+      }
     } else if (Divisa === "EUR") {
-      divisas.Euros = (divisas.Euros || 0) + updatedMonto;
+      if (divisas.Euros + updatedMonto >= 0) {
+        divisas.Euros = (divisas.Euros || 0) + updatedMonto;
+      } else {
+        return res.status(500).json({ message: "Fondos insuficientes" });
+      }
     } else {
       return res.status(400).json({ message: "Invalid currency specified" });
     }
