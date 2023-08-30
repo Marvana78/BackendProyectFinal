@@ -42,7 +42,7 @@ const ingresarCapital = async (req, res) => {
 
 const movimientoCapital = async (req, res) => {
   try {
-    const { Detalle, Divisa, Monto, Comentarios, email } = req.body;
+    const { Detalle, Divisa, Monto, Comentarios, Email } = req.body;
 
     const divisas = await Divisas.findOne();
 
@@ -89,7 +89,7 @@ const movimientoCapital = async (req, res) => {
       Divisa,
       Monto: updatedMonto,
       Comentarios,
-      email,
+      Email,
       Fecha: new Date().toLocaleString("en-US", {
         timeZone: "America/Argentina/Buenos_Aires",
         day: "2-digit",

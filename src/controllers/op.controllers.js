@@ -12,6 +12,7 @@ const Operacion = async (req, res) => {
       Estado,
       MontoTotal,
       Comentarios,
+      Email,
     } = req.body;
 
     const SwAlert = () => {
@@ -61,6 +62,7 @@ const Operacion = async (req, res) => {
       Comentarios,
       TipoCambio,
       MontoTotal,
+      Email,
       Estado: "Activa",
       Fecha: new Date().toLocaleString("en-US", {
         timeZone: "America/Argentina/Buenos_Aires",
@@ -129,7 +131,7 @@ const AcceptOp = async (req, res) => {
 
     const updatedOperation = await Operaciones.findOneAndUpdate(
       { _id: _id },
-      { Estado: "Cerrada" },
+      { Estado: "Realizada" },
       { new: true }
     );
 

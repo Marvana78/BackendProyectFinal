@@ -19,7 +19,7 @@ const MovimientosSchema = Schema({
   Fecha: {
     type: String,
   },
-  email: {
+  Email: {
     type: String,
   },
 });

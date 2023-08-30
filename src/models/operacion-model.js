@@ -30,6 +30,9 @@ const OperacionesSchema = Schema({
   Estado: {
     type: String,
   },
+  Email: {
+    type: String,
+  },
 });
 
 module.exports = model("Operaciones", OperacionesSchema);
