@@ -171,16 +171,25 @@ const CancelOp = async (req, res) => {
     const divisas = await Divisas.findOne();
     let divisasOp = await DivisasOp.findOne();
 
-    if (Detalle === "Compra") {
-      divisas.Pesos = (divisas.Pesos || 0) + MontoTotal;
-      divisasOp.Pesos = (divisasOp.Pesos || 0) - MontoTotal;
-    } else {
+    if (Detalle === "Venta") {
       if (Divisa === "USD") {
-        divisasOp.Dolares = (divisasOp.Dolares || 0) - Monto;
         divisas.Dolares = (divisas.Dolares || 0) + Monto;
+        divisasOp.Dolares = (divisasOp.Dolares || 0) - Monto;
       } else if (Divisa === "EUR") {
-        divisasOp.Euros = (divisasOp.Euros || 0) - Monto;
         divisas.Euros = (divisas.Euros || 0) + Monto;
+        divisasOp.Euros = (divisasOp.Euros || 0) - Monto;
+      } else {
+        return res.status(400).json({ message: "Invalid currency specified" });
+      }
+    } else {
+      if (Detalle === "Compra") {
+        if (Divisa === "USD") {
+          divisasOp.Pesos = (divisasOp.Pesos || 0) - MontoTotal;
+          divisas.Pesos = (divisas.Pesos || 0) + MontoTotal;
+        } else if (Divisa === "EUR") {
+          divisasOp.Pesos = (divisasOp.Pesos || 0) - MontoTotal;
+          divisas.Pesos = (divisas.Pesos || 0) + MontoTotal;
+        }
       }
     }
 
