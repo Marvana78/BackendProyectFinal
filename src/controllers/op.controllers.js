@@ -166,7 +166,7 @@ const AcceptOp = async (req, res) => {
 
 const CancelOp = async (req, res) => {
   try {
-    const { Divisa, Monto, _id } = req.body;
+    const { Detalle, Divisa, Monto, MontoTotal, _id } = req.body;
 
     const divisas = await Divisas.findOne();
     let divisasOp = await DivisasOp.findOne();
