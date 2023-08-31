@@ -171,14 +171,17 @@ const CancelOp = async (req, res) => {
     const divisas = await Divisas.findOne();
     let divisasOp = await DivisasOp.findOne();
 
-    if (Divisa === "USD") {
-      divisas.Dolares = (divisas.Dolares || 0) + Monto;
-      divisasOp.Dolares = (divisasOp.Dolares || 0) - Monto;
-    } else if (Divisa === "EUR") {
-      divisas.Euros = (divisas.Euros || 0) + Monto;
-      divisasOp.Euros = (divisasOp.Euros || 0) + Monto;
+    if (Detalle === "Compra") {
+      divisas.Pesos = (divisas.Pesos || 0) + MontoTotal;
+      divisasOp.Pesos = (divisasOp.Pesos || 0) - MontoTotal;
     } else {
-      return res.status(400).json({ message: "Invalid currency specified" });
+      if (Divisa === "USD") {
+        divisasOp.Dolares = (divisasOp.Dolares || 0) - Monto;
+        divisas.Dolares = (divisas.Dolares || 0) + Monto;
+      } else if (Divisa === "EUR") {
+        divisasOp.Euros = (divisasOp.Euros || 0) - Monto;
+        divisas.Euros = (divisas.Euros || 0) + Monto;
+      }
     }
 
     const updatedOperation = await Operaciones.findOneAndUpdate(
