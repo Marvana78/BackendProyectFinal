@@ -210,8 +210,7 @@ const CancelOp = async (req, res) => {
       session.endSession();
 
       return res.status(201).json({
-        message:
-          "Operation accepted and capital information saved successfully",
+        message: "Operation canceled successfully",
       });
     } catch (error) {
       await session.abortTransaction();
@@ -222,6 +221,21 @@ const CancelOp = async (req, res) => {
         .status(500)
         .json({ message: "Error processing operation and saving data" });
     }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+const DeleteOp = async (req, res) => {
+  try {
+    const deletedOperation = await Operaciones.findByIdAndDelete(req.params.id);
+
+    if (!deletedOperation) {
+      return res.status(404).json({ message: "Operation not found" });
+    }
+
+    return res.status(200).json({ message: "Operation deleted successfully" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal server error" });
@@ -250,4 +264,5 @@ module.exports = {
   obtenerOperaciones,
   AcceptOp,
   CancelOp,
+  DeleteOp,
 };
