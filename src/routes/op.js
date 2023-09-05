@@ -14,7 +14,7 @@ routerOp.post("/Operacion", Operacion);
 routerOp.get("/obtenerOperaciones", obtenerOperaciones);
 routerOp.post("/AcceptOp", AcceptOp);
 routerOp.post("/CancelOp", CancelOp);
-routerOp.delete("/DeleteOp", DeleteOp);
+routerOp.delete("/DeleteOp/:id", DeleteOp);
 
 //module.exports es como vamos a exportar nuestros archivos
 module.exports = routerOp;
