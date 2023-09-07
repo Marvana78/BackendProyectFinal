@@ -61,7 +61,27 @@ const loginUsuario = async (req, res) => {
   }
 };
 
+const getUserByEmail = async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    const usuario = await Usuarios.findOne({ email });
+
+    console.log(usuario.rol);
+
+    if (!usuario) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    return res.status(200).json(usuario);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Error interno del servidor" });
+  }
+};
+
 module.exports = {
   crearUsuario,
   loginUsuario,
+  getUserByEmail,
 };

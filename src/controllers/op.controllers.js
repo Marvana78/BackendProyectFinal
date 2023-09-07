@@ -259,10 +259,30 @@ const obtenerOperaciones = async (req, res) => {
   }
 };
 
+const EditOp = async (req, res) => {
+  try {
+    const operationId = req.params.id;
+    const updatedOperationData = req.body;
+
+    // Buscar la operación por su ID y actualizarla con los nuevos datos
+    const updatedOperation = await Operaciones.findByIdAndUpdate(
+      operationId,
+      updatedOperationData,
+      { new: true } // Esto devuelve la operación actualizada
+    );
+
+    res.json(updatedOperation); // Devuelve la operación actualizada como respuesta
+  } catch (error) {
+    console.error("Error al editar la operación:", error);
+    res.status(500).json({ error: "Error al editar la operación" });
+  }
+};
+
 module.exports = {
   Operacion,
   obtenerOperaciones,
   AcceptOp,
   CancelOp,
   DeleteOp,
+  EditOp,
 };

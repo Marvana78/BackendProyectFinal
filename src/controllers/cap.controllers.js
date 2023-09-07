@@ -173,9 +173,45 @@ const obtenerMovimientos = async (req, res) => {
   }
 };
 
+const EditCap = async (req, res) => {
+  const { moneda, monto } = req.body;
+
+  if (!moneda || !monto || isNaN(monto)) {
+    return res.st;
+    atus(400).json({ error: "Datos inválidos" });
+  }
+
+  try {
+    let updateField;
+    if (moneda === "USD") {
+      updateField = "Dolares";
+    } else if (moneda === "ARS") {
+      updateField = "Pesos";
+    } else if (moneda === "EUR") {
+      updateField = "Euros";
+    }
+
+    const result = await Divisas.findOneAndUpdate(
+      {},
+      { $set: { [updateField]: parseFloat(monto) } },
+      { new: true }
+    );
+
+    if (!result) {
+      return res.status(404).json({ error: "Divisa no encontrada" });
+    }
+
+    return res.json({ message: "Monto actualizado con éxito" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
 module.exports = {
   ingresarCapital,
   obtenerDivisas,
   movimientoCapital,
   obtenerMovimientos,
+  EditCap,
 };
