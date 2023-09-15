@@ -1,13 +1,31 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const dbConnection = async () => {
-  try {
-    await mongoose.connect(process.env.DB_CNN);
+  const connectionString = process.env.MONGO_DB_URI || 'mongodb://localhost:27017/restaurantDB';
 
-    console.log("conectado a la base de datos");
+  try {
+    await mongoose.connect(connectionString, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false
+    });
+
+    console.log('Base de datos online');
   } catch (error) {
-    console.log("Prolemas con la conexion a la base de datos");
+    console.log('Error al conectar a la base de datos: ', error);
+    throw new Error('Error al iniciar la base de datos');
   }
 };
 
-module.exports = { dbConnection };
+// Función para cerrar la conexión, si se necesita
+const closeConnection = async () => {
+  try {
+    await mongoose.connection.close();
+    console.log('Conexión a la base de datos cerrada');
+  } catch (error) {
+    console.log('Error al cerrar la conexión a la base de datos: ', error);
+  }
+};
+
+module.exports = { dbConnection, closeConnection };

@@ -1,33 +1,39 @@
-// Importaciones existentes
 const express = require("express");
-const { dbConnection } = require("./src/database/config");
-const app = express();
 const cors = require("cors");
-
-// Importamos dotEnv
 require("dotenv").config();
+const { dbConnection } = require("./src/database/config");
 
-// Lectura y parseo del body
-app.use(express.json());
+const app = express();
 
-// Configuración CORS
-app.use(cors());
+// Middlewares
+app.use(express.json()); // Para parsear JSON
+app.use(cors()); // Para habilitar CORS
 
 // Conexión a la base de datos
-dbConnection();
+dbConnection()
+  .then(() => console.log("Conexión a la base de datos exitosa"))
+  .catch((err) => console.log("Error en la conexión a la base de datos:", err));
 
-// Importación de las nuevas rutas de usuario
-const userRoutes = require('./src/routes/userRoutes'); // Ajusta la ruta según la ubicación de tu archivo userRoutes.js
+// Importar rutas
+const authRoutes = require("./src/routes/auth");
+const capRoutes = require("./src/routes/cap");
+const opRoutes = require("./src/routes/op");
+const userRoutes = require("./src/routes/userRoutes");
 
-// Rutas existentes
-app.use("/auth", require("./src/routes/auth"));
-app.use("/cap", require("./src/routes/cap"));
-app.use("/op", require("./src/routes/op"));
+// Usar rutas
+app.use("/api/auth", authRoutes);
+app.use("/api/cap", capRoutes);
+app.use("/api/op", opRoutes);
+app.use("/api/users", userRoutes);
 
-// Nuevas rutas de usuario
-app.use("/api/users", userRoutes); // Aquí conectamos las rutas de usuario
+// Middleware para manejo de errores
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Algo salió mal!");
+});
 
-// Puerto donde correrá la aplicación
-app.listen(process.env.PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
+// Iniciar servidor
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
