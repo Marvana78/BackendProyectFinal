@@ -1,14 +1,12 @@
 const mongoose = require('mongoose');
 
 const dbConnection = async () => {
-  const connectionString = process.env.MONGO_DB_URI || 'mongodb://localhost:27017/restaurantDB';
+  const connectionString = process.env.MONGO_DB_URI || 'mongodb://127.0.0.1:27017/restaurantDB';
 
   try {
     await mongoose.connect(connectionString, {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false
+      useUnifiedTopology: true
     });
 
     console.log('Base de datos online');
