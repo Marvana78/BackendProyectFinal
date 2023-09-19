@@ -1,7 +1,7 @@
 const Producto = require("../models/prod-model");
 
 const AddProd = async (req, res) => {
-  const { Descripcion, Precio, Nombre, Minimo } = req.body;
+  const { Categoria, Descripcion, Precio, Nombre, Minimo } = req.body;
 
   try {
     let producto = await Producto.findOne({ Nombre });

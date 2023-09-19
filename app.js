@@ -20,6 +20,7 @@ dbConnection();
 app.use("/auth", require("./src/routes/auth"));
 app.use("/menu", require("./src/routes/menu"));
 app.use("/prod", require("./src/routes/prod"));
+app.use("/combo", require("./src/routes/combo"));
 
 //definimos el puerto en donde vamos a estar trabajando
 app.listen(process.env.PORT, () => {

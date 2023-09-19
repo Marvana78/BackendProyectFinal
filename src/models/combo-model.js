@@ -1,10 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const ProductoSchema = Schema({
-  Categoria: {
-    type: String,
-    required: true,
-  },
+const ComboSchema = Schema({
   Descripcion: {
     type: String,
     required: true,
@@ -13,13 +9,18 @@ const ProductoSchema = Schema({
     type: String,
     required: true,
   },
-  Minimo: {
+  Cantidad: {
     type: Number,
+    required: true,
   },
   Precio: {
     type: Number,
     required: true,
   },
+  Composicion: {
+    type: Array,
+    required: true,
+  },
 });
 
-module.exports = model("Producto", ProductoSchema);
+module.exports = model("Combo", ComboSchema);
