@@ -5,7 +5,6 @@ const AddMenu = async (req, res) => {
 
   try {
     let menu = await Menu.findOne({ Nombre });
-    console.log(usuario);
 
     if (menu) {
       return res.json({
@@ -25,6 +24,22 @@ const AddMenu = async (req, res) => {
   }
 };
 
+const GetMenu = async (req, res) => {
+  try {
+    const menu = await Menu.find();
+
+    if (!menu) {
+      return res.status(404).json({ message: "Menú no encontrados" });
+    }
+
+    return res.status(200).json(menu);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   AddMenu,
+  GetMenu,
 };
