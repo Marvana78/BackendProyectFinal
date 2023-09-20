@@ -3,7 +3,7 @@ const cors = require("cors");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 require("dotenv").config();
-const { dbConnection } = require("./src/database/config");
+const { dbConnection, closeConnection, testDBConnection } = require("./src/database/config");  // Añade 'testDBConnection'
 
 const app = express();
 
@@ -21,24 +21,26 @@ const swaggerOptions = {
       servers: ["http://localhost:4000"]
     }
   },
-  // Ubicación de los archivos de rutas para la documentación
   apis: ["./src/routes/*.js"]
 };
 
-// Inicialización de Swagger
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Middlewares
-app.use(express.json()); // Para parsear JSON
-app.use(cors()); // Para habilitar CORS
+app.use(express.json());
+app.use(cors());
 
 // Conexión a la base de datos
 dbConnection()
-  .then(() => console.log("Conexión a la base de datos exitosa"))
+  .then(() => {
+    console.log("Conexión a la base de datos exitosa");
+    return testDBConnection();  // Aquí probamos la conexión
+  })
+  .then(() => console.log("Test de conexión a DB exitoso"))
   .catch((err) => {
     console.error("Error en la conexión a la base de datos:", err);
-    process.exit(1); // Cierra el proceso si la conexión falla
+    process.exit(1);
   });
 
 // Importar rutas

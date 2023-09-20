@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 
 const dbConnection = async () => {
-  const connectionString = process.env.MONGO_DB_URI || 'mongodb://127.0.0.1:27017/restaurantDB';
+  const connectionString = 'mongodb+srv://leomeiners1:6SWQ3vV8PJudTm82@portaldm.a5dtqas.mongodb.net/RollingCode'; // Tu cadena de conexión
 
   try {
     await mongoose.connect(connectionString, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
-
     console.log('Base de datos online');
   } catch (error) {
     console.log('Error al conectar a la base de datos: ', error);
@@ -16,7 +15,16 @@ const dbConnection = async () => {
   }
 };
 
-// Función para cerrar la conexión, si se necesita
+const testDBConnection = async () => {
+  try {
+    // Usamos el método 'ping' para probar la conexión
+    await mongoose.connection.db.command({ ping: 1 });
+    console.log('Ping a MongoDB exitoso');
+  } catch (error) {
+    console.log('Ping a MongoDB fallido', error);
+  }
+};
+
 const closeConnection = async () => {
   try {
     await mongoose.connection.close();
@@ -26,4 +34,4 @@ const closeConnection = async () => {
   }
 };
 
-module.exports = { dbConnection, closeConnection };
+module.exports = { dbConnection, closeConnection, testDBConnection };
