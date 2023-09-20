@@ -11,7 +11,7 @@ const crearUsuario = async (req, res) => {
 
     if (usuario) {
       return res.json({
-        msg: "El email que intenta registrase ya existe",
+        msg: "El Email no es valido",
       });
     }
 
@@ -40,7 +40,7 @@ const loginUsuario = async (req, res) => {
     //si el usuario no existe
     if (!usuario) {
       return res.json({
-        msg: "El Email o la contraseña es incorrectas",
+        msg: "El Email o la contraseña son incorrectas",
       });
     }
 
