@@ -1,9 +1,16 @@
 const express = require("express");
-const { AddProd, GetProd } = require("../controllers/prod.controllers");
+const {
+  AddProd,
+  GetProd,
+  DeleteProd,
+  EditProd,
+} = require("../controllers/prod.controllers");
 
-const routerMenu = express.Router();
+const routerProd = express.Router();
 
-routerMenu.post("/AddProd", AddProd);
-routerMenu.get("/GetProd", GetProd);
+routerProd.post("/AddProd", AddProd);
+routerProd.get("/GetProd", GetProd);
+routerProd.delete("/DeleteProd/:id", DeleteProd);
+routerProd.put("/EditProd/:id", EditProd);
 
-module.exports = routerMenu;
+module.exports = routerProd;
