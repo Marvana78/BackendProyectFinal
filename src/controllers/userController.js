@@ -1,6 +1,7 @@
 const Usuario = require('../models/usuario-model'); // Ajusta la ruta según sea necesario
 
 exports.createUser = async (req, res) => {
+  console.log("Cuerpo de la petición:", req.body);
   try {
     const { name, email, password, rol } = req.body;
     const nuevoUsuario = new Usuario({
