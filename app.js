@@ -7,6 +7,7 @@ const cors = require("cors");
 //importamos dotEnv
 require("dotenv").config();
 
+
 //lecutura y parseo del body
 app.use(express.json());
 
