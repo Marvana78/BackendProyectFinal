@@ -40,7 +40,7 @@ const loginUsuario = async (req, res) => {
 		//si el usuario no existe
 		if (!usuario) {
 			return res.json({
-				msg: 'El Email o la contraseña es incorrectas',
+				msg: 'El Email o la contraseña es incorrecta',
 			});
 		}
 
