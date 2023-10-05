@@ -31,34 +31,34 @@ const crearUsuario = async (req, res) => {
 };
 
 const loginUsuario = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+	try {
+		const { email, password } = req.body;
 
-    //validacion si existe el usuario
-    let usuario = await Usuarios.findOne({ email });
+		//validacion si existe el usuario
+		let usuario = await Usuarios.findOne({ email });
 
-    //si el usuario no existe
-    if (!usuario) {
-      return res.json({
-        msg: "El Email o la contraseña es incorrectas",
-      });
-    }
+		//si el usuario no existe
+		if (!usuario) {
+			return res.json({
+				msg: 'El Email o la contraseña es incorrectas',
+			});
+		}
 
-    //confirmar contraseñas
-    const validarPassword = bcrypt.compareSync(password, usuario.password);
+		//confirmar contraseñas
+		const validarPassword = bcrypt.compareSync(password, usuario.password);
 
-    if (!validarPassword) {
-      res.json({
-        msg: "El email o la contraseña es incorrectos",
-      });
-    }
+		if (!validarPassword) {
+			res.json({
+				msg: 'El email o la contraseña es incorrectos',
+			});
+		}
 
-    res.json({
-      msg: "Usuario logueado",
-    });
-  } catch (error) {
-    console.log(error);
-  }
+		res.json({
+			msg: 'Usuario logueado',
+		});
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 const getUserByEmail = async (req, res) => {
