@@ -63,4 +63,27 @@ router.post('/create', userController.createUser);
  */
 router.put('/deactivate/:id', userController.deactivateUser);
 
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     tags:
+ *       - Users
+ *     description: Obtiene una lista de usuarios
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Lista de usuarios
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/User'
+ *       404:
+ *         description: Datos de los usuarios no encontrados
+ *       500:
+ *         description: Error del servidor interno
+ */
+router.get('/', userController.getUsers);
+
 module.exports = router;

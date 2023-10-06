@@ -76,26 +76,13 @@ const getUserByEmail = async (req, res) => {
     console.error(error);
     return res.status(500).json({ message: "Error interno del servidor" });
   }
-};
+}
 
-const getUsers = async (req, res) => {
-  try {
-    const usuarios = await Usuarios.find();
 
-    if (!usuarios) {
-      return res.status(404).json({ message: "Currency data not found" });
-    }
-
-    return res.status(200).json(usuarios);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
-};
 
 module.exports = {
   crearUsuario,
   loginUsuario,
   getUserByEmail,
-  getUsers,
+  
 };

@@ -33,3 +33,17 @@ exports.deactivateUser = async (req, res) => {
     res.status(500).send('Hubo un error al desactivar el usuario');
   }
 };
+exports.getUsers = async (req, res) => {
+  try {
+    const usuarios = await Usuario.find();
+
+    if (!usuarios) {
+      return res.status(404).json({ message: "Currency data not found" });
+    }
+
+    return res.status(200).json(usuarios);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
