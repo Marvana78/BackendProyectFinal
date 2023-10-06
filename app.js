@@ -55,7 +55,11 @@ const capRoutes = require("./src/routes/cap");
 const opRoutes = require("./src/routes/op");
 const userRoutes = require("./src/routes/userRoutes");
 
+
 // Usar rutas
+app.use("/auth", require("./src/routes/auth"));
+app.use("/menu", require("./src/routes/menu"));
+app.use("/prod", require("./src/routes/prod"));
 app.use("/api/auth", authRoutes);
 app.use("/api/cap", capRoutes);
 app.use("/api/op", opRoutes);
@@ -66,6 +70,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: err.message }); // Devuelve el mensaje de error en el response
 });
+
 
 // Iniciar servidor
 const PORT = process.env.PORT || 4000;

@@ -1,3 +1,4 @@
+
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
@@ -37,3 +38,4 @@ usuarioSchema.pre("save", async function (next) {
 });
 
 module.exports = model("Usuario", usuarioSchema);
+
