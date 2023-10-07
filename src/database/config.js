@@ -5,6 +5,8 @@
 const mongoose = require("mongoose");
 
 const dbConnection = async () => {
+  const connectionString = 'mongodb+srv://leol2dm:J6NDmndcjItp35y5@cluster0.ks9msnp.mongodb.net/RollingCode'; // Tu cadena de conexión
+
   try {
     await mongoose.connect(process.env.DB_CNN);
 

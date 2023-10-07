@@ -1,7 +1,6 @@
 const Usuario = require('../models/usuario-model'); // Ajusta la ruta según sea necesario
 
 exports.createUser = async (req, res) => {
-  console.log("Cuerpo de la petición:", req.body);
   try {
     const { name, email, password, rol } = req.body;
     const nuevoUsuario = new Usuario({
@@ -21,6 +20,10 @@ exports.createUser = async (req, res) => {
 exports.deactivateUser = async (req, res) => {
   try {
     const { id } = req.params;
+    
+    // Imprimimos el ID recibido
+    console.log('ID recibido:', id);
+
     const usuario = await Usuario.findById(id);
     if (!usuario) {
       return res.status(404).json({ msg: 'Usuario no encontrado' });
@@ -31,6 +34,37 @@ exports.deactivateUser = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send('Hubo un error al desactivar el usuario');
+  }
+};
+
+exports.editUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, email, password, rol } = req.body;
+
+    // Imprimimos el ID recibido
+    console.log('ID recibido:', id);
+    console.log('nombre recibido:', name);
+    console.log('email recibido:', email);
+    console.log('password Recibido', password);
+    console.log('Rol recibido', rol);
+    const usuario = await Usuario.findById(id);
+    if (!usuario) {
+      return res.status(404).json({ msg: 'Usuario no encontrado' });
+    }
+
+    // Actualizar datos del usuario
+    if (name) usuario.name = name;
+    if (email) usuario.email = email;
+    if (password) usuario.password = password;
+    if (rol) usuario.rol = rol;
+
+    await usuario.save();
+    res.status(200).json({ msg: 'Usuario editado exitosamente', usuario });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Hubo un error al editar el usuario');
   }
 };
 exports.getUsers = async (req, res) => {
