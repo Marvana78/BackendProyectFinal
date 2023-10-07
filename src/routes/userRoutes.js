@@ -65,6 +65,46 @@ router.put('/deactivate/:id', userController.deactivateUser);
 
 /**
  * @swagger
+ * /api/users/edit/{id}:
+ *   put:
+ *     tags:
+ *       - Users
+ *     description: Edita un usuario
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         description: ID del usuario
+ *         in: path
+ *         required: true
+ *         type: string
+ *       - name: body
+ *         description: Datos del usuario a editar
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *             email:
+ *               type: string
+ *             password:
+ *               type: string
+ *             rol:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: Usuario editado exitosamente
+ *       404:
+ *         description: Usuario no encontrado
+ *       500:
+ *         description: Hubo un error al editar el usuario
+ */
+router.put('/edit/:id', userController.editUser);
+
+/**
+ * @swagger
  * /api/users:
  *   get:
  *     tags:
