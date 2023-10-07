@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const dbConnection = async () => {
-  const connectionString = 'mongodb+srv://leomeiners1:6SWQ3vV8PJudTm82@portaldm.a5dtqas.mongodb.net/RollingCode'; // Tu cadena de conexión
+  const connectionString = 'mongodb+srv://leol2dm:J6NDmndcjItp35y5@cluster0.ks9msnp.mongodb.net/RollingCode'; // Tu cadena de conexión
 
   try {
     await mongoose.connect(connectionString, {

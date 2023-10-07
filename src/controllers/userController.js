@@ -20,6 +20,10 @@ exports.createUser = async (req, res) => {
 exports.deactivateUser = async (req, res) => {
   try {
     const { id } = req.params;
+    
+    // Imprimimos el ID recibido
+    console.log('ID recibido:', id);
+
     const usuario = await Usuario.findById(id);
     if (!usuario) {
       return res.status(404).json({ msg: 'Usuario no encontrado' });
