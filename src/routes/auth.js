@@ -1,3 +1,4 @@
+
 const express = require("express");
 const {
   crearUsuario,
@@ -17,3 +18,4 @@ routerAuth.get("/getUserByEmail", getUserByEmail);
 
 //module.exports es como vamos a exportar nuestros archivos
 module.exports = routerAuth;
+

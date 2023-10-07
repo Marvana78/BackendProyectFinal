@@ -1,20 +1,20 @@
-const mongoose = require('mongoose');
+
+
+
+
+const mongoose = require("mongoose");
 
 const dbConnection = async () => {
   const connectionString = 'mongodb+srv://leol2dm:J6NDmndcjItp35y5@cluster0.ks9msnp.mongodb.net/RollingCode'; // Tu cadena de conexión
 
   try {
-    await mongoose.connect(connectionString, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    console.log('Base de datos online');
+    await mongoose.connect(process.env.DB_CNN);
+
+    console.log("conectado a la base de datos");
   } catch (error) {
-    console.log('Error al conectar a la base de datos: ', error);
-    throw new Error('Error al iniciar la base de datos');
+    console.log("Problemas con la conexion a la base de datos");
   }
 };
-
 const testDBConnection = async () => {
   try {
     // Usamos el método 'ping' para probar la conexión
@@ -35,3 +35,5 @@ const closeConnection = async () => {
 };
 
 module.exports = { dbConnection, closeConnection, testDBConnection };
+
+
