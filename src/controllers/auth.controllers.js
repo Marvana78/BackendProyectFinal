@@ -65,7 +65,6 @@ const getUsers = async (req, res) => {
 };
 
 module.exports = {
-	crearUsuario,
 	loginUsuario,
 	getUserByEmail,
 	getUsers,
