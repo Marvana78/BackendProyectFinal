@@ -1,7 +1,7 @@
 const Menu = require("../models/menu-model");
 
 const AddMenu = async (req, res) => {
-  const { Descripcion, Monto, Nombre, Unidades } = req.body;
+  const { Descripcion, Precio, Nombre, Minimo } = req.body;
 
   try {
     let menu = await Menu.findOne({ Nombre });
@@ -12,7 +12,8 @@ const AddMenu = async (req, res) => {
       });
     }
 
-    menu = new Menu(req.body);
+
+    menu = new Menu({ Descripcion, Monto:Precio, Nombre, Unidades:Minimo });
 
     await menu.save();
 
