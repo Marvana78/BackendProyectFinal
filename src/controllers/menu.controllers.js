@@ -2,7 +2,7 @@ const Menu = require("../models/menu-model");
 
 const AddMenu = async (req, res) => {
   const { Descripcion, Precio, Nombre, Minimo } = req.body;
-
+console.log(req.body)
   try {
     let menu = await Menu.findOne({ Nombre });
 
@@ -13,7 +13,7 @@ const AddMenu = async (req, res) => {
     }
 
 
-    menu = new Menu({ Descripcion, Monto:Precio, Nombre, Unidades:Minimo });
+    menu = new Menu({ Descripcion, Monto:Precio, Nombre, Unidades:Minimo ||1});
 
     await menu.save();
 
@@ -28,7 +28,7 @@ const AddMenu = async (req, res) => {
 const GetMenu = async (req, res) => {
   try {
     const menu = await Menu.find();
-
+console.log(menu)
     if (!menu) {
       return res.status(404).json({ message: "Menú no encontrados" });
     }

@@ -27,7 +27,7 @@ const AddProd = async (req, res) => {
 const GetProd = async (req, res) => {
   try {
     const producto = await Producto.find();
-
+   
     if (!producto) {
       return res.status(404).json({ message: "Menú no encontrados" });
     }
